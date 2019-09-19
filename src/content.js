@@ -1,6 +1,6 @@
 class Content {
     constructor(){
-        console.log('mycontent')
+        console.log('content')
     }
 }
 export default Content
