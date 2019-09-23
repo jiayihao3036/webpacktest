@@ -1,6 +1,7 @@
 const path = require('path')
 module.exports = {
     entry:'./src/index.js',
+    // devtool:'eval',
     output:{
         filename:'myWebpack.js',
         path: path.resolve(__dirname,'webpackbao')
@@ -11,10 +12,10 @@ module.exports = {
             test:/\.(png|jpg|gif)$/,
             use:[
                 {
-                    loader:'url-loader',
+                    loader:'file-loader',
                     options:{
-                        name:'myjpg.jpg'
-                        // outputPath:'images/'
+                        name:'[name]_[hash].[ext]',
+                        outputPath:'images/'
                     }
                 }
             ]
@@ -36,7 +37,15 @@ module.exports = {
         },
         {
             test:/\.(scss|sass)$/,
-            use:['style-loader','css-loader','sass-loader','postcss-loader']
+            use:['style-loader',
+            { 
+                loader:'css-loader',
+                options:{
+                    importLoaders:2
+                }
+            },
+            'sass-loader',
+            'postcss-loader']
         }
     ]     
     },
