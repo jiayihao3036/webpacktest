@@ -1,13 +1,35 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const webpack = require('webpack')
 module.exports = {
-    entry:'./src/index.js',
+    entry:{
+        app: './src/index.js',
+        header:'./src/header'
+    },
+    devServer:{
+        contentBase:'./dist',
+        open:true,
+        hot:true,
+        hotOnly:true
+    },
     // devtool:'eval',
     output:{
-        filename:'myWebpack.js',
-        path: path.resolve(__dirname,'webpackbao')
+        filename:'[name].index.js',
+        path: path.resolve(__dirname,'dist'),
+        
     },
     module:{
         rules:[
+            {
+                test:/\.js$/,
+                exclude:/node_modules/,
+                use:[
+                    {
+                        loader:'babel-loader',
+                    }
+                ]
+            },
             {
             test:/\.(png|jpg|gif)$/,
             use:[
@@ -49,5 +71,14 @@ module.exports = {
         }
     ]     
     },
-    mode:"production"
+    plugins:[new HtmlWebpackPlugin({
+       template:"src/index.html"
+    }),
+    new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+],
+    mode:"production",
+    optimization:{
+        sideEffects:true
+    }
 }
