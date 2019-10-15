@@ -4,4 +4,10 @@ class Content {
         console.log('ssss')
     }
 }
-export default Content
+const addfun1 =()=>{
+    console.log('add1')
+}
+const addfun2 =()=>{
+    console.log('add2')
+}
+export  {Content,addfun1,addfun2}

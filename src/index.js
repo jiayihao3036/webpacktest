@@ -1,13 +1,14 @@
-import Content from "./content"
+import {Content,addfun1} from "./content"
 import Header from "./header"
 import Slider from "./slider"
 import myjpg from "./image/myjpg.jpg"
 // import '@babel/polyfill'
-// import  './active.scss'
-import './test.css'
+import  './active.scss'
+// import './test.css'
 var image = new Image()
 console.log(process.env.NODE_ENV)
 console.log(123)
+addfun1()
 image.src = myjpg
 image.id = 'imgId'
 document.getElementById('mydiv').appendChild(image)

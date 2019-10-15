@@ -1,19 +1,11 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-const webpack = require('webpack')
 module.exports = {
     entry:{
         app: './src/index.js',
         header:'./src/header'
     },
-    devServer:{
-        contentBase:'./dist',
-        open:true,
-        hot:true,
-        hotOnly:true
-    },
-    // devtool:'eval',
     output:{
         filename:'[name].index.js',
         path: path.resolve(__dirname,'dist'),
@@ -27,6 +19,14 @@ module.exports = {
                 use:[
                     {
                         loader:'babel-loader',
+                        options:{
+                            presets:[
+                                ['@babel/preset-env',{
+                                     useBuiltIns:'usage',
+                                     corejs:2
+                                }]
+                            ]
+                        }
                     }
                 ]
             },
@@ -75,10 +75,5 @@ module.exports = {
        template:"src/index.html"
     }),
     new CleanWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-],
-    mode:"production",
-    optimization:{
-        sideEffects:true
-    }
+]
 }
