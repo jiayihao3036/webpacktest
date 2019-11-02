@@ -3,5 +3,8 @@
     height: 150px;
 }
 .divClass{
-    background-color: red
+    background-color: green
+}
+.divClass{
+    font-size: 16px;
 }

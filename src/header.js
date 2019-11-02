@@ -1,6 +1,7 @@
+// import _ from 'lodash'
 class Header {
     constructor(){
-        console.log('myheader222333')
+        console.log("header")
     }
 }
 export default Header

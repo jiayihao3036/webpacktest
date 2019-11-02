@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const webpack = require('webpack')
 module.exports = {
     entry:{
         app: './src/index.js',
@@ -13,6 +14,16 @@ module.exports = {
     },
     module:{
         rules:[
+            // {
+            //     test: /\.(html)$/,
+            //     use: {
+            //       loader: 'html-loader',
+            //       options: {
+            //         //  minimize:true,
+            //          attrs: [':data-src']
+            //       }
+            //     }
+            // },
             {
                 test:/\.js$/,
                 exclude:/node_modules/,
@@ -53,27 +64,23 @@ module.exports = {
                     }
                 }
             ]
-        },{
-            test:/\.css$/,
-            use:['style-loader','css-loader']
         },
-        {
-            test:/\.(scss|sass)$/,
-            use:['style-loader',
-            { 
-                loader:'css-loader',
-                options:{
-                    importLoaders:2
-                }
-            },
-            'sass-loader',
-            'postcss-loader']
-        }
+        
     ]     
     },
+    optimization:{
+        usedExports:true
+    },
     plugins:[new HtmlWebpackPlugin({
-       template:"src/index.html"
+       template:"src/index.html",
+       minify:{
+           collapseWhitespace: true
+       }
+    //    inject:false
     }),
     new CleanWebpackPlugin(),
+    new webpack.ProvidePlugin({
+        _:'lodash'
+    }),
 ]
 }
